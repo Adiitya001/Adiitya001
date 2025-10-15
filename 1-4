@@ -1,0 +1,203 @@
+1.Process a coffee order: take customer size choice, calculate total price based on size and add-ons, and handle a list of 5 drink types.
+import java.util.Scanner;
+
+public class CoffeeOrder {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // List of drinks
+        String[] drinks = {"Espresso", "Latte", "Cappuccino", "Americano", "Mocha"};
+        System.out.println("Welcome to Java Coffee Shop!");
+        System.out.println("Available drinks:");
+        for (int i = 0; i < drinks.length; i++) {
+            System.out.println((i + 1) + ". " + drinks[i]);
+        }
+
+        // Choose drink
+        System.out.print("Choose your drink (1-5): ");
+        int drinkChoice = sc.nextInt();
+        if (drinkChoice < 1 || drinkChoice > 5) {
+            System.out.println("Invalid choice!");
+            return;
+        }
+        String drink = drinks[drinkChoice - 1];
+
+        // Choose size
+        System.out.println("Choose size: 1. Small ($2)  2. Medium ($3)  3. Large ($4)");
+        System.out.print("Enter size (1-3): ");
+        int sizeChoice = sc.nextInt();
+        int basePrice = 0;
+        switch (sizeChoice) {
+            case 1: basePrice = 2; break;
+            case 2: basePrice = 3; break;
+            case 3: basePrice = 4; break;
+            default:
+                System.out.println("Invalid size!");
+                return;
+        }
+
+        // Add-ons
+        System.out.println("Add-ons ($1 each): Whipped Cream, Extra Shot, Syrup");
+        System.out.print("How many add-ons would you like? ");
+        int addOns = sc.nextInt();
+        if (addOns < 0) addOns = 0;
+
+        // Calculate total
+        int totalPrice = basePrice + addOns;
+
+        // Display order
+        System.out.println("Your order: " + drink + ", size " + (sizeChoice == 1 ? "Small" : sizeChoice == 2 ? "Medium" : "Large"));
+        System.out.println("Add-ons: " + addOns);
+        System.out.println("Total Price: $" + totalPrice);
+    }
+}
+
+
+2.Create a method that accepts two numbers and an operation symbol. Use a switch to perform and return the result of addition, subtraction, multiplication, or division.
+import java.util.Scanner;
+
+public class Calculator {
+
+    // Method to perform calculation
+    public static double calculate(double num1, double num2, char op) {
+        double result = 0;
+
+        switch(op) {
+            case '+':
+                result = num1 + num2;
+                break;
+
+            case '-':
+                result = num1 - num2;
+                break;
+
+            case '*':
+                result = num1 * num2;
+                break;
+
+            case '/':
+                if (num2 != 0) {
+                    result = num1 / num2;
+                } else {
+                    System.out.println("Error: Division by zero!");
+                    return Double.NaN; // Return Not-a-Number
+                }
+                break;
+
+            default:
+                System.out.println("Invalid operation!");
+                return Double.NaN;
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter first number: ");
+        double num1 = sc.nextDouble();
+
+        System.out.print("Enter second number: ");
+        double num2 = sc.nextDouble();
+
+        System.out.print("Enter operation (+, -, *, /): ");
+        char op = sc.next().charAt(0);
+
+        double result = calculate(num1, num2, op);
+        System.out.println("Result: " + result);
+    }
+}
+
+
+3.Input a string and count vowels, consonants, digits, and special characters using loops and conditionals.
+import java.util.Scanner;
+
+public class CharacterCounter {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
+
+        int vowels = 0;
+        int consonants = 0;
+        int digits = 0;
+        int specialChars = 0;
+
+        // Convert string to lowercase for easier comparison
+        String str = input.toLowerCase();
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+
+            if (ch >= 'a' && ch <= 'z') {
+                // Check if vowel
+                if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+                    vowels++;
+                } else {
+                    consonants++;
+                }
+            } else if (ch >= '0' && ch <= '9') {
+                digits++;
+            } else {
+                specialChars++;
+            }
+        }
+
+        System.out.println("Vowels: " + vowels);
+        System.out.println("Consonants: " + consonants);
+        System.out.println("Digits: " + digits);
+        System.out.println("Special Characters: " + specialChars);
+    }
+}
+
+
+
+
+4.For n customers, input name, account type, and balance. Apply 4% interest for savings and 6% for fixed accounts, then display updated balances.
+import java.util.Scanner;
+
+public class BankInterest {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of customers: ");
+        int n = sc.nextInt();
+        sc.nextLine(); // Consume newline
+
+        String[] names = new String[n];
+        String[] accountTypes = new String[n];
+        double[] balances = new double[n];
+
+        // Input customer details
+        for (int i = 0; i < n; i++) {
+            System.out.println("\nCustomer " + (i + 1) + ":");
+
+            System.out.print("Enter name: ");
+            names[i] = sc.nextLine();
+
+            System.out.print("Enter account type (Savings/Fixed): ");
+            accountTypes[i] = sc.nextLine();
+
+            System.out.print("Enter balance: ");
+            balances[i] = sc.nextDouble();
+            sc.nextLine(); // Consume newline
+        }
+
+        // Apply interest
+        for (int i = 0; i < n; i++) {
+            if (accountTypes[i].equalsIgnoreCase("Savings")) {
+                balances[i] += balances[i] * 0.04; // 4% interest
+            } else if (accountTypes[i].equalsIgnoreCase("Fixed")) {
+                balances[i] += balances[i] * 0.06; // 6% interest
+            }
+        }
+
+        // Display updated balances
+        System.out.println("\nUpdated Balances:");
+        for (int i = 0; i < n; i++) {
+            System.out.println(names[i] + " (" + accountTypes[i] + "): $" + balances[i]);
+        }
+    }
+}
