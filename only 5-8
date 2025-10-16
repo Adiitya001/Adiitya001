@@ -1,0 +1,138 @@
+5.Read 5 daily temperatures into an array. Use a loop and a method to convert each temperature from Celsius to Fahrenheit, displaying both.
+import java.util.Scanner;
+
+public class TemperatureConverter {
+
+    // Method to convert Celsius to Fahrenheit
+    public static double celsiusToFahrenheit(double celsius) {
+        return (celsius * 9 / 5) + 32;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double[] celsiusTemps = new double[5];
+
+        // Input temperatures
+        System.out.println("Enter 5 daily temperatures in Celsius:");
+        for (int i = 0; i < 5; i++) {
+            System.out.print("Day " + (i + 1) + ": ");
+            celsiusTemps[i] = sc.nextDouble();
+        }
+
+        // Display Celsius and Fahrenheit
+        System.out.println("\nTemperatures in Celsius and Fahrenheit:");
+        for (int i = 0; i < 5; i++) {
+            double fahrenheit = celsiusToFahrenheit(celsiusTemps[i]);
+            System.out.println("Day " + (i + 1) + ": " + celsiusTemps[i] + "°C = " + fahrenheit + "°F");
+        }
+    }
+}
+
+
+
+6.Accept number of units consumed and calculate bill based on slab rates using conditionals and methods.
+import java.util.Scanner;
+
+public class ElectricityBill {
+
+    // Method to calculate bill based on units
+    public static double calculateBill(int units) {
+        double bill = 0;
+
+        if (units <= 100) {
+            bill = units * 5; // 5 per unit for first 100 units
+        } else if (units <= 200) {
+            bill = 100 * 5 + (units - 100) * 7; // 7 per unit for next 100 units
+        } else {
+            bill = 100 * 5 + 100 * 7 + (units - 200) * 10; // 10 per unit above 200
+        }
+
+        return bill;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of units consumed: ");
+        int units = sc.nextInt();
+
+        double totalBill = calculateBill(units);
+        System.out.println("Total electricity bill: $" + totalBill);
+    }
+}
+
+
+
+7.Input a string and check if it’s a palindrome (ignore case and spaces). Use string methods and exception handling.
+import java.util.Scanner;
+
+public class PalindromeChecker {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter a string: ");
+            String input = sc.nextLine();
+
+            // Remove spaces and convert to lowercase
+            String processed = input.replaceAll("\\s+", "").toLowerCase();
+
+            // Check palindrome
+            boolean isPalindrome = true;
+            int len = processed.length();
+            for (int i = 0; i < len / 2; i++) {
+                if (processed.charAt(i) != processed.charAt(len - 1 - i)) {
+                    isPalindrome = false;
+                    break;
+                }
+            }
+
+            // Display result
+            if (isPalindrome) {
+                System.out.println("The string is a palindrome.");
+            } else {
+                System.out.println("The string is not a palindrome.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: Invalid input. " + e.getMessage());
+        }
+    }
+}
+
+
+
+8.Read a word (String). Use a loop and a switch on each character to replace 'a' with '4', 'e' with '3', and 'o' with '0'.
+import java.util.Scanner;
+
+public class LeetConverter {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a word: ");
+        String word = sc.nextLine();
+        StringBuilder converted = new StringBuilder();
+
+        // Loop through each character
+        for (int i = 0; i < word.length(); i++) {
+            char ch = word.charAt(i);
+            switch (ch) {
+                case 'a':
+                case 'A':
+                    converted.append('4');
+                    break;
+                case 'e':
+                case 'E':
+                    converted.append('3');
+                    break;
+                case 'o':
+                case 'O':
+                    converted.append('0');
+                    break;
+                default:
+                    converted.append(ch);
+            }
+        }
+
+        System.out.println("Converted word: " + converted.toString());
+    }
+}
