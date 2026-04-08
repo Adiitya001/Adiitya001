@@ -1,0 +1,198 @@
+Q1. Design and implement Selenium environment setup to configure WebDriver and verify browser
+# Import required libraries
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+# Setup WebDriver (auto downloads ChromeDriver)
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+
+# Open website
+driver.get("https://www.google.com")
+
+# Verify browser by printing title and URL
+print("Title:", driver.title)
+print("URL:", driver.current_url)
+
+# Maximize window
+driver.maximize_window()
+
+# Close browser
+driver.quit()
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+🧪 EXP 2
+Q2. Design and implement basic browser navigation to automate opening, refreshing, and navigating pages.
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+import time
+
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+
+# Open first site
+driver.get("https://google.com")
+time.sleep(2)
+
+# Navigate to another site
+driver.get("https://bing.com")
+time.sleep(2)
+
+# Navigate back
+driver.back()
+time.sleep(2)
+
+# Navigate forward
+driver.forward()
+time.sleep(2)
+
+# Refresh page
+driver.refresh()
+
+driver.quit()
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+🧪 EXP 3
+Q3. Design and implement locators to find web elements using ID, XPath, or CSS selectors.
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+
+driver.get("https://www.google.com")
+
+# Locate search box using Name
+search = driver.find_element(By.NAME, "q")
+
+# Enter text
+search.send_keys("Selenium")
+
+driver.quit()
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+🧪 EXP 4
+Q4. Design and implement form automation to fill and submit forms with test data.
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+
+driver.get("https://example.com/login")
+
+# Enter username
+driver.find_element(By.ID, "username").send_keys("admin")
+
+# Enter password
+driver.find_element(By.ID, "password").send_keys("1234")
+
+# Click login
+driver.find_element(By.ID, "login").click()
+
+driver.quit()
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+🧪 EXP 5
+Q5. Design and implement dropdown and checkbox handling using Select and click methods.
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+
+driver = webdriver.Chrome()
+driver.get("https://example.com")
+
+# Handle dropdown
+dropdown = Select(driver.find_element(By.ID, "country"))
+dropdown.select_by_visible_text("India")
+
+# Handle checkbox
+checkbox = driver.find_element(By.ID, "agree")
+
+# Check if not selected
+if not checkbox.is_selected():
+    checkbox.click()
+
+driver.quit()
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+🧪 EXP 6
+Q6. Design and implement alert and pop-up handling to interact with JavaScript alerts.
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get("https://example.com")
+
+# Switch to alert
+alert = driver.switch_to.alert
+
+# Accept alert
+alert.accept()
+
+# OR dismiss
+# alert.dismiss()
+
+driver.quit()
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+🧪 EXP 7
+Q7. Design and implement screenshot capturing to save images of web pages during testing.
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get("https://google.com")
+
+# Capture screenshot
+driver.save_screenshot("page.png")
+
+driver.quit()
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+🧪 EXP 8
+Q8. Design and implement mouse and keyboard actions using the Actions class for advanced interactions.
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+driver.get("https://example.com")
+
+actions = ActionChains(driver)
+
+# Hover over element
+element = driver.find_element(By.ID, "menu")
+actions.move_to_element(element).perform()
+
+driver.quit()
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+🧪 EXP 9
+Q9. Design and implement web table interaction to extract and process data from table elements.
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+driver.get("https://example.com")
+
+# Get all rows
+rows = driver.find_elements(By.XPATH, "//table//tr")
+
+# Loop through table
+for row in rows:
+    cols = row.find_elements(By.TAG_NAME, "td")
+    for col in cols:
+        print(col.text)
+
+driver.quit()
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+🧪 EXP 10
+Q10. Design and implement wait mechanisms to handle dynamic web elements using implicit or explicit waits.
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+driver = webdriver.Chrome()
+
+# Implicit wait
+driver.implicitly_wait(10)
+
+driver.get("https://example.com")
+
+# Explicit wait
+element = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.ID, "login"))
+)
+
+driver.quit()
+
